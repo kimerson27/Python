@@ -109,7 +109,8 @@ def StopTimer():
         messagebox.showwarning(title='Нет таймера', message='Таймер не был запущен.')
 
 def RefrInfo():
-    TextForm.insert("1.0",TextInfo)
+    TextForm.delete("1.0",tk.END)
+    TextForm.insert("1.0",TextInfo.selection_get())
 
 def on_closing():
     # Обработчик закрытия окна
@@ -172,8 +173,9 @@ TextInfo=tk.Text(tab2,wrap='word',width=40,height=10)
 TextInfo.grid(column=0,row=0,sticky='nesw')
 
 TextForm=tk.Text(tab2,wrap='word',width=40,height=10)
-TextInfo.grid(column=0,row=1,sticky='nesw')
+TextForm.grid(column=0,row=1,sticky='nesw')
 
+tk.Button(tab2, text='Обнови строки', command=RefrInfo, width=20).grid(column=1, row=0)
 
 # Обработчик закрытия окна
 window.protocol('WM_DELETE_WINDOW', on_closing)
