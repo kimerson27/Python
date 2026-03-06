@@ -26,6 +26,13 @@ def ChooseFile():
         messagebox.showinfo(title='Файлы выбраны', message=f'Список выбран')
     else:
         messagebox.showwarning(title='Файлы не выбраны', message='Файлы не был выбраны.')
+        
+    TextInfo.delete("1.0", tk.END)
+    if FilePath:
+        for i, file in enumerate(FilePath, 1):
+            TextInfo.insert('end', f"{i}. {file}\n")
+    else:
+        TextInfo.insert('end', "Файлы не выбраны")
 
 def RefreshFile():
     global WorkTimer
@@ -101,6 +108,8 @@ def StopTimer():
     except:
         messagebox.showwarning(title='Нет таймера', message='Таймер не был запущен.')
 
+def RefrInfo():
+    TextForm.insert("1.0",TextInfo)
 
 def on_closing():
     # Обработчик закрытия окна
@@ -147,25 +156,24 @@ EnteryHours.grid(column=2, row=2)
 
 # Кнопки
 # Первая вкладка
-StartButton = tk.Button(tab1, text='Выбрать файлы', command=ChooseFile, width=20)
-StartButton.grid(column=2, row=3, padx=5,pady=5)
+tk.Button(tab1, text='Выбрать файлы', command=ChooseFile, width=20).grid(column=2, row=3, padx=5,pady=5)
 
-RefreshBTN = tk.Button(tab1, text='Обновить файлы', command=RefreshFile, width=20)
-RefreshBTN.grid(column=2, row=4, padx=5,pady=5)
+tk.Button(tab1, text='Обновить файлы', command=RefreshFile, width=20).grid(column=2, row=4, padx=5,pady=5)
 
-TimerBTN = tk.Button(tab1, text='Запустить таймер', command=StartTimer, width=20)
-TimerBTN.grid(column=1, row=3, padx=5, pady=5)
+tk.Button(tab1, text='Запустить таймер', command=StartTimer, width=20).grid(column=1, row=3, padx=5, pady=5)
 
-StopBTN = tk.Button(tab1, text='Остановить таймер', command=StopTimer, width=20)
-StopBTN.grid(column=1, row=4, padx=5, pady=5)
+tk.Button(tab1, text='Остановить таймер', command=StopTimer, width=20).grid(column=1, row=4, padx=5, pady=5)
 
-destroy = tk.Button(tab1, text='Закрыть', command=on_closing, width=20)
-destroy.grid(column=1, row=5,columnspan=2)
+tk.Button(tab1, text='Закрыть', command=on_closing, width=20).grid(column=1, row=5,columnspan=2)
 
 # Вторая вкладка
 
 TextInfo=tk.Text(tab2,wrap='word',width=40,height=10)
 TextInfo.grid(column=0,row=0,sticky='nesw')
+
+TextForm=tk.Text(tab2,wrap='word',width=40,height=10)
+TextInfo.grid(column=0,row=1,sticky='nesw')
+
 
 # Обработчик закрытия окна
 window.protocol('WM_DELETE_WINDOW', on_closing)
