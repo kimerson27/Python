@@ -26,7 +26,7 @@ def ChooseFile():
         messagebox.showinfo(title='Файлы выбраны', message=f'Список выбран')
     else:
         messagebox.showwarning(title='Файлы не выбраны', message='Файлы не был выбраны.')
-        
+#Обработка списка 
     TextInfo.delete("1.0", tk.END)
     if FilePath:
         for i, file in enumerate(FilePath, 1):
